@@ -1,2 +1,2 @@
-#define QUICK_TAP_TERM 0
-#define TAPPING_TERM 200
+#define TAPPING_TERM 125
+#define TAPPING_TERM_PER_KEY
