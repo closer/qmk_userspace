@@ -12,10 +12,18 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-    C_LTGL = QK_USER_26,
-    C_RTGL,
-
-    UMC_1, UMC_2, UMC_3, UMC_4, UMC_5, UMC_6, UMC_7, UMC_8, UMC_9, UMC_10, UMC_11, UMC_12
+    UMC_1 = QK_USER_26,
+    UMC_2,
+    UMC_3,
+    UMC_4,
+    UMC_5,
+    UMC_6,
+    UMC_7,
+    UMC_8,
+    UMC_9,
+    UMC_10,
+    UMC_11,
+    UMC_12
 };
 
 // キーマップの設定
@@ -23,118 +31,115 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_ESC,        KC_Q,   KC_W,              KC_E,    KC_R,     KC_T,
-        CTL_T(KC_TAB), KC_A,   KC_S,              KC_D,    KC_F,     KC_G,
-        KC_LSFT,       KC_Z,   KC_X,              KC_C,    KC_V,     KC_B,
-                       UMC_1,  MO(BALL_SETTINGS), KC_LALT, KC_GUIH,  LT(LOWER, KC_SPC),
+        KC_ESC,        KC_Q,   KC_W,              KC_E,    KC_R,             KC_T,
+        CTL_T(KC_TAB), KC_A,   KC_S,              KC_D,    KC_F,             KC_G,
+        KC_LSFT,       KC_Z,   KC_X,              KC_C,    KC_V,             KC_B,
+                       UMC_1,  MO(BALL_SETTINGS), KC_LALT, LGUI_T(KC_LNG2),  LT(LOWER, KC_SPC),
                                UMC_2,
         // 側面スイッチ
         UMC_3, UMC_4,
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
         // 追加スイッチ                            // トグルスイッチ
-        UMC_5, UMC_6,                              C_LTGL,
+        UMC_5, UMC_6,                              MO(ONOFF),
 
         // 右手
         // 天面スイッチ
-        KC_Y,              KC_U,     KC_I,     KC_O,               KC_P,                KC_BSPC,
-        KC_H,              KC_J,     KC_K,     KC_L,               LT(MOUSE, KC_SCLN),  KC_QUOT,
-        KC_N,              KC_M,     KC_COMM,  KC_DOT,             KC_SLSH,             KC_RSFT,
-        LT(UPPER, KC_ENT), KC_RGUI,  KC_RALT,  MO(LIGHT_SETTINGS), UMC_12,
-                                               UMC_11,
+        KC_Y,              KC_U,             KC_I,     KC_O,               KC_P,                KC_BSPC,
+        KC_H,              KC_J,             KC_K,     KC_L,               LT(MOUSE, KC_SCLN),  KC_QUOT,
+        KC_N,              KC_M,             KC_COMM,  KC_DOT,             KC_SLSH,             KC_RSFT,
+        LT(UPPER, KC_ENT), RGUI_T(KC_LNG1),  KC_RALT,  MO(LIGHT_SETTINGS), UMC_12,
+                                             UMC_11,
         // 側面スイッチ
         UMC_9, UMC_10,
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
         // 追加スイッチ                            // トグルスイッチ
-        UMC_7, UMC_8,                              C_RTGL
+        UMC_7, UMC_8,                              MO(OFFON)
     ),
     [ONOFF] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_ESC,        KC_Q,   KC_W,              KC_E,    KC_R,     KC_T,
-        CTL_T(KC_TAB), KC_A,   KC_S,              KC_D,    KC_F,     KC_G,
-        KC_LSFT,       KC_Z,   KC_X,              KC_C,    KC_V,     KC_B,
-                       UMC_1,  MO(BALL_SETTINGS), KC_LALT, KC_GUIH,  LT(LOWER, KC_SPC),
-                               UMC_2,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+                 _______, _______, _______, _______, _______,
+                          _______,
         // 側面スイッチ
-        UMC_3, UMC_4,
-        // 十字キーorジョイスティック              // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
-        // 追加スイッチ                            // トグルスイッチ
-        UMC_5, UMC_6,                              C_LTGL,
-
+        _______, _______,
+        // 十字キーorジョイスティック                // ジョイスティックスイッチ
+        _______, _______, _______, _______,          _______,
+        // 追加スイッチ                              // トグルスイッチ
+        _______, _______,                            _______,
         // 右手
         // 天面スイッチ
-        KC_Y,              KC_U,     KC_I,     KC_O,               KC_P,                KC_BSPC,
-        KC_H,              KC_J,     KC_K,     KC_L,               LT(MOUSE, KC_SCLN),  KC_QUOT,
-        KC_N,              KC_M,     KC_COMM,  KC_DOT,             KC_SLSH,             KC_RSFT,
-        LT(UPPER, KC_ENT), KC_RGUI,  KC_RALT,  MO(LIGHT_SETTINGS), UMC_12,
-                                               UMC_11,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+                                   _______,
         // 側面スイッチ
-        UMC_9, UMC_10,
-        // 十字キーorジョイスティック              // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
-        // 追加スイッチ                            // トグルスイッチ
-        UMC_7, UMC_8,                              C_RTGL
+        _______, _______,
+        // 十字キーorジョイスティック                // ジョイスティックスイッチ
+        _______, _______, _______, _______,          _______,
+        // 追加スイッチ                              // トグルスイッチ
+        _______, _______,                            _______
     ),
     [OFFON] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_ESC,        KC_Q,   KC_W,              KC_E,    KC_R,     KC_T,
-        CTL_T(KC_TAB), KC_A,   KC_S,              KC_D,    KC_F,     KC_G,
-        KC_LSFT,       KC_Z,   KC_X,              KC_C,    KC_V,     KC_B,
-                       UMC_1,  MO(BALL_SETTINGS), KC_LALT, KC_GUIH,  LT(LOWER, KC_SPC),
-                               UMC_2,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+                 _______, _______, _______, _______, _______,
+                          _______,
         // 側面スイッチ
-        UMC_3, UMC_4,
-        // 十字キーorジョイスティック              // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
-        // 追加スイッチ                            // トグルスイッチ
-        UMC_5, UMC_6,                              C_LTGL,
-
+        _______, _______,
+        // 十字キーorジョイスティック                // ジョイスティックスイッチ
+        _______, _______, _______, _______,          _______,
+        // 追加スイッチ                              // トグルスイッチ
+        _______, _______,                            _______,
         // 右手
         // 天面スイッチ
-        KC_Y,              KC_U,     KC_I,     KC_O,               KC_P,                KC_BSPC,
-        KC_H,              KC_J,     KC_K,     KC_L,               LT(MOUSE, KC_SCLN),  KC_QUOT,
-        KC_N,              KC_M,     KC_COMM,  KC_DOT,             KC_SLSH,             KC_RSFT,
-        LT(UPPER, KC_ENT), KC_RGUI,  KC_RALT,  MO(LIGHT_SETTINGS), UMC_12,
-                                               UMC_11,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+                                   _______,
         // 側面スイッチ
-        UMC_9, UMC_10,
-        // 十字キーorジョイスティック              // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
-        // 追加スイッチ                            // トグルスイッチ
-        UMC_7, UMC_8,                              C_RTGL
+        _______, _______,
+        // 十字キーorジョイスティック                // ジョイスティックスイッチ
+        _______, _______, _______, _______,          _______,
+        // 追加スイッチ                              // トグルスイッチ
+        _______, _______,                            _______
     ),
     [ONON] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_ESC,        KC_Q,   KC_W,              KC_E,    KC_R,     KC_T,
-        CTL_T(KC_TAB), KC_A,   KC_S,              KC_D,    KC_F,     KC_G,
-        KC_LSFT,       KC_Z,   KC_X,              KC_C,    KC_V,     KC_B,
-                       UMC_1,  MO(BALL_SETTINGS), KC_LALT, KC_GUIH,  LT(LOWER, KC_SPC),
-                               UMC_2,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+                 _______, _______, _______, _______, _______,
+                          _______,
         // 側面スイッチ
-        UMC_3, UMC_4,
-        // 十字キーorジョイスティック              // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
-        // 追加スイッチ                            // トグルスイッチ
-        UMC_5, UMC_6,                              C_LTGL,
-
+        _______, _______,
+        // 十字キーorジョイスティック                // ジョイスティックスイッチ
+        _______, _______, _______, _______,          _______,
+        // 追加スイッチ                              // トグルスイッチ
+        _______, _______,                            _______,
         // 右手
         // 天面スイッチ
-        KC_Y,              KC_U,     KC_I,     KC_O,               KC_P,                KC_BSPC,
-        KC_H,              KC_J,     KC_K,     KC_L,               LT(MOUSE, KC_SCLN),  KC_QUOT,
-        KC_N,              KC_M,     KC_COMM,  KC_DOT,             KC_SLSH,             KC_RSFT,
-        LT(UPPER, KC_ENT), KC_RGUI,  KC_RALT,  MO(LIGHT_SETTINGS), UMC_12,
-                                               UMC_11,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+                                   _______,
         // 側面スイッチ
-        UMC_9, UMC_10,
-        // 十字キーorジョイスティック              // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
-        // 追加スイッチ                            // トグルスイッチ
-        UMC_7, UMC_8,                              C_RTGL
+        _______, _______,
+        // 十字キーorジョイスティック                // ジョイスティックスイッチ
+        _______, _______, _______, _______,          _______,
+        // 追加スイッチ                              // トグルスイッチ
+        _______, _______,                            _______
     ),
     [LOWER] = LAYOUT(
         // 左手
@@ -261,7 +266,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         // 追加スイッチ                              // トグルスイッチ
-        XXXXXXX, INV_SCRL,                           XXXXXXX,
+        XXXXXXX, INV_SCRL,                           _______,
         // 右手
         // 天面スイッチ
         R_CHMOD, _______, QK_USER_14, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -274,7 +279,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         // 追加スイッチ                              // トグルスイッチ
-        XXXXXXX, XXXXXXX,                            XXXXXXX
+        XXXXXXX, XXXXXXX,                            _______
     ),
     [LIGHT_SETTINGS] = LAYOUT(
         // 左手
@@ -289,7 +294,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         // 追加スイッチ                              // トグルスイッチ
-        XXXXXXX, XXXXXXX,                            XXXXXXX,
+        XXXXXXX, XXXXXXX,                            _______,
         // 右手
         // 天面スイッチ
         _______, UG_NEXT, UG_PREV, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -302,9 +307,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         // 追加スイッチ                              // トグルスイッチ
-        XXXXXXX, XXXXXXX,                            XXXXXXX
+        XXXXXXX, XXXXXXX,                            _______
     )
 };
+
+// Hold on Other Key Press Per Key
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case LT(MOUSE, KC_SCLN):
+    case LGUI_T(KC_LNG2):
+      // Immediately select the hold action when another key is pressed.
+      return true;
+    default:
+      // Do not select the hold action when another key is pressed.
+      return false;
+  }
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    state = update_tri_layer_state(state, ONOFF, OFFON, ONON);
+	state = update_tri_layer_state(state, LOWER, UPPER, ADJUST);
+    return state;
+}
+
+bool alt_esc_pressed = false;
 
 #define MACRO_NONE 0
 
@@ -323,52 +349,8 @@ const uint16_t PROGMEM macros[] = {
     [UMC_12] = MACRO_NONE,
 };
 
-bool toggle_left_side = false;
-bool toggle_right_side = false;
-
-int get_toggle_layer(void) {
-    if (!toggle_left_side && !toggle_right_side) {
-        return BASE;
-    } else if (toggle_left_side && !toggle_right_side) {
-        return ONOFF;
-    } else if (!toggle_left_side && toggle_right_side) {
-        return OFFON;
-    } else if (toggle_left_side && toggle_right_side) {
-        return ONON;
-    }
-    return BASE;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-	return update_tri_layer_state(state, LOWER, UPPER, ADJUST);
-}
-
-bool alt_esc_pressed = false;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // Layer Control
-        case C_LTGL:
-            if (record->event.pressed) {
-                toggle_left_side = true;
-            } else {
-                toggle_left_side = false;
-            }
-            layer_clear();
-            layer_on(get_toggle_layer());
-            set_single_default_layer(get_toggle_layer());
-            break;
-        case C_RTGL:
-            if (record->event.pressed) {
-                toggle_right_side = true;
-            } else {
-                toggle_right_side = false;
-            }
-            layer_clear();
-            layer_on(get_toggle_layer());
-            set_single_default_layer(get_toggle_layer());
-            break;
-
         // Modified Keycodes
         case KC_ESC:
             if (record->event.pressed) {
