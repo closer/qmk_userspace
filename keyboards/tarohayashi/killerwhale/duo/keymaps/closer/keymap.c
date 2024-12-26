@@ -26,36 +26,47 @@ enum custom_keycodes {
     UMC_12
 };
 
+#define KC_CTAB LCTL_T(KC_TAB)
+#define KC_GUIE LGUI_T(KC_LNG2)
+#define KC_GUIH LGUI_T(KC_LNG1)
+#define KC_LOWER LT(LOWER, KC_SPC)
+#define KC_UPPER LT(UPPER, KC_ENT)
+#define KC_ONOFF MO(ONOFF)
+#define KC_OFFON MO(OFFON)
+#define KC_BALL MO(BALL_SETTINGS)
+#define KC_LIGHT MO(LIGHT_SETTINGS)
+#define KC_MSCLN LT(MOUSE, KC_SCLN)
+
 // キーマップの設定
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_ESC,        KC_Q,   KC_W,              KC_E,    KC_R,             KC_T,
-        CTL_T(KC_TAB), KC_A,   KC_S,              KC_D,    KC_F,             KC_G,
-        KC_LSFT,       KC_Z,   KC_X,              KC_C,    KC_V,             KC_B,
-                       UMC_1,  MO(BALL_SETTINGS), KC_LALT, LGUI_T(KC_LNG2),  LT(LOWER, KC_SPC),
-                               UMC_2,
+        KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,
+        KC_CTAB, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,
+        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,
+                 UMC_1,  KC_BALL, KC_LALT, KC_GUIE,  KC_LOWER,
+                         UMC_2,
         // 側面スイッチ
         UMC_3, UMC_4,
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
         // 追加スイッチ                            // トグルスイッチ
-        UMC_5, UMC_6,                              MO(ONOFF),
+        UMC_5, UMC_6,                              KC_ONOFF,
 
         // 右手
         // 天面スイッチ
-        KC_Y,              KC_U,             KC_I,     KC_O,               KC_P,                KC_BSPC,
-        KC_H,              KC_J,             KC_K,     KC_L,               LT(MOUSE, KC_SCLN),  KC_QUOT,
-        KC_N,              KC_M,             KC_COMM,  KC_DOT,             KC_SLSH,             KC_RSFT,
-        LT(UPPER, KC_ENT), RGUI_T(KC_LNG1),  KC_RALT,  MO(LIGHT_SETTINGS), UMC_12,
-                                             UMC_11,
+        KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,      KC_BSPC,
+        KC_H,     KC_J,     KC_K,     KC_L,     KC_MSCLN,  KC_QUOT,
+        KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,   KC_RSFT,
+        KC_UPPER, KC_GUIH,  KC_RALT,  KC_LIGHT, UMC_12,
+                                      UMC_11,
         // 側面スイッチ
         UMC_9, UMC_10,
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
         // 追加スイッチ                            // トグルスイッチ
-        UMC_7, UMC_8,                              MO(OFFON)
+        UMC_7, UMC_8,                              KC_OFFON
     ),
     [ONOFF] = LAYOUT(
         // 左手
@@ -243,8 +254,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 天面スイッチ
         _______, _______, _______, _______, _______, _______,
         _______, KC_MS_BTN1, KC_MS_BTN2, MOD_SCRL, _______, _______,
-        _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, QK_USER_4,
+        JS_2,    JS_3,    _______, _______, _______, _______,
+        JS_0,    JS_1,    _______, _______, QK_USER_4,
                                    _______,
         // 側面スイッチ
         _______, _______,
@@ -311,27 +322,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// Hold on Other Key Press Per Key
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case LT(MOUSE, KC_SCLN):
-    case LGUI_T(KC_LNG2):
-      // Immediately select the hold action when another key is pressed.
-      return true;
-    default:
-      // Do not select the hold action when another key is pressed.
-      return false;
-  }
-}
-
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, ONOFF, OFFON, ONON);
-	state = update_tri_layer_state(state, LOWER, UPPER, ADJUST);
+    state = update_tri_layer_state(state, LOWER, UPPER, ADJUST);
     return state;
 }
 
-bool alt_esc_pressed = false;
+// altered
+bool altered_pressed = false;
+bool process_record_altered(uint mod_key, uint16_t keycode, uint16_t alter_key, keyrecord_t *record) {
+    if (record->event.pressed) {
+        if (get_mods() & MOD_BIT(mod_key)) {
+            register_code(alter_key);
+            altered_pressed = true;
+            return false;
+        }
+    } else {
+        if (altered_pressed) {
+            unregister_code(alter_key);
+            altered_pressed = false;
+            return false;
+        }
+    }
+    return true;
+}
 
+// Macros
 #define MACRO_NONE 0
 
 const uint16_t PROGMEM macros[] = {
@@ -349,46 +365,119 @@ const uint16_t PROGMEM macros[] = {
     [UMC_12] = MACRO_NONE,
 };
 
+bool process_record_user_macro(uint16_t keycode, keyrecord_t *record) {
+    keycode = macros[keycode];
+    if (keycode == MACRO_NONE) {
+        return false;
+    }
+    if (record->event.pressed) {
+        tap_code16(keycode);
+    }
+    return false;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         // Modified Keycodes
         case KC_ESC:
-            if (record->event.pressed) {
-                if (get_mods() & MOD_BIT(KC_LCTL)) {
-                    register_code(KC_TAB);
-                    alt_esc_pressed = true;
-                    return false;
-                }
-            } else {
-                if (alt_esc_pressed) {
-                    unregister_code(KC_TAB);
-                    alt_esc_pressed = false;
-                    return false;
-                }
-            }
-            break;
+            return process_record_altered(KC_LCTL, KC_ESC, KC_TAB, record);
 
         // Macro Keycodes
-        case UMC_1:
-        case UMC_2:
-        case UMC_3:
-        case UMC_4:
-        case UMC_5:
-        case UMC_6:
-        case UMC_7:
-        case UMC_8:
-        case UMC_9:
-        case UMC_10:
-        case UMC_11:
-        case UMC_12:
-            keycode = macros[keycode];
-            if (keycode == MACRO_NONE) {
-                return false;
-            }
-            if (record->event.pressed) {
-                tap_code16(keycode);
-            }
-            break;
+        case UMC_1 ... UMC_12:
+            return process_record_user_macro(keycode, record);
     }
     return true;
-}
+};
+
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+    [BASE] =   {
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(MS_WHLL, MS_WHLR),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(MS_WHLU, MS_WHLD),
+    },
+    [ONOFF] =   {
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(MS_WHLL, MS_WHLR),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(MS_WHLU, MS_WHLD),
+    },
+    [OFFON] =   {
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(MS_WHLL, MS_WHLR),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(MS_WHLU, MS_WHLD),
+    },
+    [ONON] =   {
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(MS_WHLL, MS_WHLR),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(MS_WHLU, MS_WHLD),
+    },
+    [LOWER] =   {
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(RGUI(KC_PLUS), RGUI(KC_MINS)),
+    },
+    [UPPER] =   {
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(LCA(KC_EQL), LCA(KC_MINS)),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(RGUI(KC_PLUS), RGUI(KC_MINS)),
+    },
+    [ADJUST] =   {
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(LCA(KC_EQL), LCA(KC_MINS)),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(RGUI(KC_PLUS), RGUI(KC_MINS)),
+    },
+    [MOUSE] =   {
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(MS_WHLL, MS_WHLR),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(MS_WHLU, MS_WHLD),
+    },
+    [LIGHT_SETTINGS] =   {
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(UG_HUEU, UG_HUED),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(UG_HUEU, UG_HUED),
+    },
+};
