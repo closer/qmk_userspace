@@ -165,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
         _______, _______, _______, _______,        _______,
         // 追加スイッチ                            // トグルスイッチ
-        _______, _______,                          _______,
+        _______, KC_ASST,                          _______,
         // 右手
         // 天面スイッチ
         KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    _______,
@@ -351,18 +351,18 @@ bool process_record_altered(uint mod_key, uint16_t keycode, uint16_t alter_key, 
 #define MACRO_NONE 0
 
 const uint16_t PROGMEM macros[] = {
-    [UMC_1] = MACRO_NONE,
-    [UMC_2] = LCA(KC_R),
-    [UMC_3] = LCA(KC_LEFT),
-    [UMC_4] = LCA(KC_F),
-    [UMC_5] = LCA(KC_RIGHT),
-    [UMC_6] = MEH(KC_F),
-    [UMC_7] = MACRO_NONE,
-    [UMC_8] = MACRO_NONE,
-    [UMC_9] = MACRO_NONE,
-    [UMC_10] = MACRO_NONE,
-    [UMC_11] = MACRO_NONE,
-    [UMC_12] = MACRO_NONE,
+    [UMC_1] = LCA(KC_F1),
+    [UMC_2] = LCA(KC_F2),
+    [UMC_3] = LCA(KC_F3),
+    [UMC_4] = LCA(KC_F4),
+    [UMC_5] = LCA(KC_F5),
+    [UMC_6] = LCA(KC_F6),
+    [UMC_7] = LCA(KC_F7),
+    [UMC_8] = LCA(KC_F8),
+    [UMC_9] = LCA(KC_F9),
+    [UMC_10] = LCA(KC_F10),
+    [UMC_11] = LCA(KC_F11),
+    [UMC_12] = LCA(KC_F12),
 };
 
 bool process_record_user_macro(uint16_t keycode, keyrecord_t *record) {
@@ -398,7 +398,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(MS_WHLU, MS_WHLD),
+        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
     },
     [ONOFF] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
@@ -408,7 +408,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(MS_WHLU, MS_WHLD),
+        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
     },
     [OFFON] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
@@ -418,7 +418,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(MS_WHLU, MS_WHLD),
+        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
     },
     [ONON] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
@@ -428,7 +428,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(MS_WHLU, MS_WHLD),
+        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
     },
     [LOWER] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
@@ -444,7 +444,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(LCA(KC_EQL), LCA(KC_MINS)),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
@@ -454,7 +454,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(LCA(KC_EQL), LCA(KC_MINS)),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
@@ -468,7 +468,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(MS_WHLU, MS_WHLD),
+        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
     },
     [LIGHT_SETTINGS] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
