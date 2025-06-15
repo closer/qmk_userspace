@@ -6,24 +6,9 @@
 // レイヤー名
 enum layer_number {
     BASE = 0,
-    ONOFF, OFFON, ONON,                  // トグルスイッチで変更するレイヤー
-    LOWER, UPPER, ADJUST,                // 長押しで変更するレイヤー
-    MOUSE, BALL_SETTINGS, LIGHT_SETTINGS // 自動マウスレイヤー切り替えや設定用のレイヤー
-};
-
-enum custom_keycodes {
-    UMC_1 = QK_USER_26,
-    UMC_2,
-    UMC_3,
-    UMC_4,
-    UMC_5,
-    UMC_6,
-    UMC_7,
-    UMC_8,
-    UMC_9,
-    UMC_10,
-    UMC_11,
-    UMC_12
+    ONOFF, OFFON, ONON,  // トグルスイッチで変更するレイヤー
+    LOWER, UPPER, HYPER, // 長押しで変更するレイヤー
+    MOUSE, SETTINGS      // 自動マウスレイヤー切り替えや設定用のレイヤー
 };
 
 #define KC_CTAB LCTL_T(KC_TAB)
@@ -33,8 +18,7 @@ enum custom_keycodes {
 #define KC_UPPER LT(UPPER, KC_ENT)
 #define KC_ONOFF MO(ONOFF)
 #define KC_OFFON MO(OFFON)
-#define KC_BALL MO(BALL_SETTINGS)
-#define KC_LIGHT MO(LIGHT_SETTINGS)
+#define KC_SETNG MO(SETTINGS)
 #define KC_MSCLN LT(MOUSE, KC_SCLN)
 
 // キーマップの設定
@@ -45,28 +29,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,
         KC_CTAB, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,
         KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,
-                 UMC_1,  KC_BALL, KC_LALT, KC_GUIE,  KC_LOWER,
-                         UMC_2,
+                 LCA(KC_F1),  KC_GLB, KC_LALT, KC_GUIE,  KC_LOWER,
+                         LCA(KC_F2),
         // 側面スイッチ
-        UMC_3, UMC_4,
+        LCA(KC_F3), LCA(KC_F4),
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         L_CHMOD,
+        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,     L_CHMOD,
         // 追加スイッチ                            // トグルスイッチ
-        UMC_5, UMC_6,                              KC_ONOFF,
+        LCA(KC_F5), LCA(KC_F6),                  KC_ONOFF,
 
         // 右手
         // 天面スイッチ
         KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,      KC_BSPC,
         KC_H,     KC_J,     KC_K,     KC_L,     KC_MSCLN,  KC_QUOT,
         KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,   KC_RSFT,
-        KC_UPPER, KC_GUIH,  KC_RALT,  KC_LIGHT, UMC_12,
-                                      UMC_11,
+        KC_UPPER, KC_GUIH,  KC_RALT,  KC_SETNG, LCA(KC_F12),
+                                      LCA(KC_F11),
         // 側面スイッチ
-        UMC_9, UMC_10,
+        LCA(KC_F9), LCA(KC_F10),
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,         R_CHMOD,
+        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,     R_CHMOD,
         // 追加スイッチ                            // トグルスイッチ
-        UMC_7, UMC_8,                              KC_OFFON
+        LCA(KC_F7), LCA(KC_F8),                  KC_OFFON
     ),
     [ONOFF] = LAYOUT(
         // 左手
@@ -165,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
         _______, _______, _______, _______,        _______,
         // 追加スイッチ                            // トグルスイッチ
-        _______, KC_ASST,                          _______,
+        _______, _______,                          _______,
         // 右手
         // 天面スイッチ
         KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    _______,
@@ -208,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 追加スイッチ                              // トグルスイッチ
         _______, _______,                            _______
     ),
-    [ADJUST] = LAYOUT(
+    [HYPER] = LAYOUT(
         // 左手
         // 天面スイッチ
         _______, _______, _______, _______, _______, _______,
@@ -264,35 +248,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 追加スイッチ                              // トグルスイッチ
         _______, _______,                            _______
     ),
-    [BALL_SETTINGS] = LAYOUT(
-        // 左手
-        // 天面スイッチ
-        XXXXXXX,    XXXXXXX, XXXXXXX, QK_USER_14, _______, L_CHMOD,
-        XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX,    L_SPD_I, XXXXXXX,
-        AUTO_MOUSE, XXXXXXX, XXXXXXX, L_ANG_D,    L_INV,   L_ANG_I,
-                    XXXXXXX, XXXXXXX, XXXXXXX,    L_SPD_D, XXXXXXX,
-                             INV_SCRL,
-        // 側面スイッチ
-        XXXXXXX, XXXXXXX,
-        // 十字キーorジョイスティック                // ジョイスティックスイッチ
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
-        // 追加スイッチ                              // トグルスイッチ
-        XXXXXXX, INV_SCRL,                           _______,
-        // 右手
-        // 天面スイッチ
-        R_CHMOD, _______, QK_USER_14, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, R_SPD_I, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX,
-        R_ANG_D, R_INV,   R_ANG_I,    XXXXXXX, XXXXXXX, AUTO_MOUSE,
-        XXXXXXX, R_SPD_D, XXXXXXX,    XXXXXXX, XXXXXXX,
-                                      INV_SCRL,
-        // 側面スイッチ
-        XXXXXXX, XXXXXXX,
-        // 十字キーorジョイスティック                // ジョイスティックスイッチ
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
-        // 追加スイッチ                              // トグルスイッチ
-        XXXXXXX, XXXXXXX,                            _______
-    ),
-    [LIGHT_SETTINGS] = LAYOUT(
+    [SETTINGS] = LAYOUT(
         // 左手
         // 天面スイッチ
         XXXXXXX, XXXXXXX, XXXXXXX,  UG_NEXT, UG_PREV, _______,
@@ -308,13 +264,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX,                            _______,
         // 右手
         // 天面スイッチ
-        _______, UG_NEXT, UG_PREV, XXXXXXX, XXXXXXX, XXXXXXX,
-        UG_TOGG, UG_HUEU, UG_SATU, UG_VALU, UG_SPDU, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, OLED_MOD,
-        XXXXXXX, UG_HUED, UG_SATD, UG_VALD, UG_SPDD,
-                                   QK_USER_15,
+        R_CHMOD, _______, QK_USER_14, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, R_SPD_I, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX,
+        R_ANG_D, R_INV,   R_ANG_I,    XXXXXXX, XXXXXXX, AUTO_MOUSE,
+        XXXXXXX, R_SPD_D, XXXXXXX,    XXXXXXX, XXXXXXX,
+                                      INV_SCRL,
         // 側面スイッチ
-        UG_PREV, UG_NEXT,
+        XXXXXXX, XXXXXXX,
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,
         // 追加スイッチ                              // トグルスイッチ
@@ -324,7 +280,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     state = update_tri_layer_state(state, ONOFF, OFFON, ONON);
-    state = update_tri_layer_state(state, LOWER, UPPER, ADJUST);
+    if (layer_state_cmp(state, ONON)) {
+        state &= ~(1UL << ONOFF);
+        state &= ~(1UL << OFFON);
+    }
+
+    state = update_tri_layer_state(state, LOWER, UPPER, HYPER);
+    if (layer_state_cmp(state, HYPER)) {
+        state &= ~(1UL << LOWER);
+        state &= ~(1UL << UPPER);
+    }
+
     return state;
 }
 
@@ -347,94 +313,69 @@ bool process_record_altered(uint mod_key, uint16_t keycode, uint16_t alter_key, 
     return true;
 }
 
-// Macros
-#define MACRO_NONE 0
-
-const uint16_t PROGMEM macros[] = {
-    [UMC_1] = LCA(KC_F1),
-    [UMC_2] = LCA(KC_F2),
-    [UMC_3] = LCA(KC_F3),
-    [UMC_4] = LCA(KC_F4),
-    [UMC_5] = LCA(KC_F5),
-    [UMC_6] = LCA(KC_F6),
-    [UMC_7] = LCA(KC_F7),
-    [UMC_8] = LCA(KC_F8),
-    [UMC_9] = LCA(KC_F9),
-    [UMC_10] = LCA(KC_F10),
-    [UMC_11] = LCA(KC_F11),
-    [UMC_12] = LCA(KC_F12),
-};
-
-bool process_record_user_macro(uint16_t keycode, keyrecord_t *record) {
-    keycode = macros[keycode];
-    if (keycode == MACRO_NONE) {
-        return false;
-    }
-    if (record->event.pressed) {
-        tap_code16(keycode);
-    }
-    return false;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (layer_state_is(HYPER)) {
+        if (record->event.pressed) {
+            add_mods(MOD_HYPR);
+        } else {
+            del_mods(MOD_HYPR);
+        }
+    }
+
     switch (keycode) {
         // Modified Keycodes
         case KC_ESC:
             return process_record_altered(KC_LCTL, KC_ESC, KC_TAB, record);
-
-        // Macro Keycodes
-        case UMC_1 ... UMC_12:
-            return process_record_user_macro(keycode, record);
     }
     return true;
 };
 
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [BASE] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(MS_WHLL, MS_WHLR),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(S(C(KC_TAB)), C(KC_TAB)),
     },
     [ONOFF] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(MS_WHLL, MS_WHLR),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(S(C(KC_TAB)), C(KC_TAB)),
     },
     [OFFON] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(MS_WHLL, MS_WHLR),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(S(C(KC_TAB)), C(KC_TAB)),
     },
     [ONON] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(MS_WHLL, MS_WHLR),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(S(C(KC_TAB)), C(KC_TAB)),
     },
     [LOWER] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
@@ -444,17 +385,17 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(KC_MNXT, KC_MPRV),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(RGUI(KC_PLUS), RGUI(KC_MINS)),
+        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
     },
-    [ADJUST] =   {
+    [HYPER] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(KC_MNXT, KC_MPRV),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
@@ -468,9 +409,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(KC_VOLU, KC_VOLD),
+        ENCODER_CCW_CW(MS_WHLU, MS_WHLD),
     },
-    [LIGHT_SETTINGS] =   {
+    [SETTINGS] =   {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
@@ -478,6 +419,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
         ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
-        ENCODER_CCW_CW(UG_HUEU, UG_HUED),
+        ENCODER_CCW_CW(R_SPD_I, R_SPD_D),
     },
 };
