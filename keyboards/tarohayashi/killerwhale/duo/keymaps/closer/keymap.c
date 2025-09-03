@@ -20,6 +20,7 @@ enum layer_number {
 #define KC_OFFON MO(OFFON)
 #define KC_SETNG MO(SETTINGS)
 #define KC_MSCLN LT(MOUSE, KC_SCLN)
+#define KC_MQUOT LT(MOUSE, KC_QUOT)
 
 // キーマップの設定
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -41,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 右手
         // 天面スイッチ
         KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,      KC_BSPC,
-        KC_H,     KC_J,     KC_K,     KC_L,     KC_MSCLN,  KC_QUOT,
+        KC_H,     KC_J,     KC_K,     KC_L,     KC_MSCLN,  KC_MQUOT,
         KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,   KC_RSFT,
         KC_UPPER, KC_GUIH,  KC_RALT,  KC_SETNG, KC_F12,
                                       KC_F11,
@@ -55,30 +56,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ONOFF] = LAYOUT(
         // 左手
         // 天面スイッチ
-        _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,
-                 _______, _______, _______, _______, _______,
-                          _______,
+        KC_ESC,  KC_Q,    KC_L,    KC_U,    KC_COMM, KC_DOT,
+        KC_CTAB, KC_E,    KC_A,    KC_O,    KC_I,    KC_MINS,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_SCLN,
+                 KC_F1,   KC_GLB,  KC_LALT, KC_GUIE, KC_LOWER,
+                          KC_F2,
         // 側面スイッチ
-        _______, _______,
+        KC_F3,   KC_F4,
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
-        _______, _______, _______, _______,      _______,
+        KC_UP,   KC_DOWN, KC_LEFT, KC_RIGHT,     L_CHMOD,
         // 追加スイッチ                            // トグルスイッチ
-        _______, _______,                        _______,
+        KC_F5,   KC_F6,                          _______,
         // 右手
         // 天面スイッチ
-        _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______,
-                                   _______,
+        KC_F,    KC_W,    KC_R,    KC_Y,    KC_P,    KC_BSPC,
+        KC_K,    KC_T,    KC_N,    KC_S,    KC_H,    KC_MQUOT,
+        KC_G,    KC_D,    KC_M,    KC_J,    KC_B,     KC_RSFT,
+        KC_UPPER, KC_GUIH, KC_RALT, KC_SETNG, KC_F12,
+                                   KC_F11,
         // 側面スイッチ
-        _______, _______,
+        KC_F9,   KC_F10,
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
-        _______, _______, _______, _______,      _______,
+        KC_UP,   KC_DOWN, KC_LEFT, KC_RIGHT,     R_CHMOD,
         // 追加スイッチ                            // トグルスイッチ
-        _______, _______,                        _______
+        KC_F7,   KC_F8,                          _______
     ),
     [OFFON] = LAYOUT(
         // 左手
@@ -223,10 +224,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MOUSE] = LAYOUT(
         // 左手
         // 天面スイッチ
-        _______, _______, _______, _______, _______,    _______,
-        _______, _______, MOD_SCRL, KC_MS_BTN2, KC_MS_BTN1, _______,
-        _______, _______, _______, _______, _______,    _______,
-                 QK_USER_4, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+                 _______, _______, _______, _______, _______,
                           _______,
         // 側面スイッチ
         _______, _______,
@@ -237,9 +238,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 右手
         // 天面スイッチ
         _______, _______, _______, _______, _______, _______,
-        _______, KC_MS_BTN1, KC_MS_BTN2, MOD_SCRL, _______, _______,
-        JS_2,    JS_3,    _______, _______, _______, _______,
-        JS_0,    JS_1,    _______, _______, QK_USER_4,
+        _______, MS_BTN1, MS_BTN2, MOD_SCRL, _______, _______,
+        _______, MS_BTN3, _______, _______, _______, _______,
+        _______, _______, _______, _______, QK_USER_4,
                                    _______,
         // 側面スイッチ
         _______, _______,
