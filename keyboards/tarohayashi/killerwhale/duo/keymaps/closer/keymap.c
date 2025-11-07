@@ -16,9 +16,45 @@ enum {
     TD_ESC_F1,
 };
 
+// ESC/F1タップダンス用の状態
+typedef struct {
+    bool is_held;
+} td_tap_hold_t;
+
+static td_tap_hold_t esc_f1_state = {
+    .is_held = false
+};
+
+// タップ: ESC、長押し: F1
+void esc_f1_finished(tap_dance_state_t *state, void *user_data) {
+    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
+    if (state->pressed) {
+        // 長押し: F1
+        s->is_held = true;
+        register_code(KC_F1);
+    } else {
+        // タップ: ESC
+        s->is_held = false;
+        register_code(KC_ESC);
+    }
+}
+
+void esc_f1_reset(tap_dance_state_t *state, void *user_data) {
+    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
+    if (s->is_held) {
+        unregister_code(KC_F1);
+        s->is_held = false;
+    } else {
+        unregister_code(KC_ESC);
+    }
+}
+
 // タップダンス定義
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_ESC_F1] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_F1),
+    [TD_ESC_F1] = {
+        .fn = {NULL, esc_f1_finished, esc_f1_reset},
+        .user_data = (void *)&esc_f1_state,
+    },
 };
 
 #define KC_CTAB LCTL_T(KC_TAB)
