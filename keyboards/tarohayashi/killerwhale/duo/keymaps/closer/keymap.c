@@ -105,8 +105,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
         // 右手
         // 天面スイッチ
-        KC_F7, KC_F8, KC_F9,   KC_F10, KC_F11,   KC_F12,
-        KC_Y,  KC_U,  KC_I,    KC_O,   KC_P,     TD(TD_BSPC_F12),
+        KC_F7, KC_F8, KC_F9,   KC_F10, KC_F11,   TD(TD_BSPC_F12),
+        KC_Y,  KC_U,  KC_I,    KC_O,   KC_P,     KC_MQUOT,
         KC_H,  KC_J,  KC_K,    KC_L,   KC_MSCLN, KC_RSFT,
         KC_N,  KC_M,  KC_COMM, KC_DOT, KC_MQUOT,
                                KC_SLSH,
