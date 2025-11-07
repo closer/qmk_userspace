@@ -18,6 +18,18 @@ typedef struct
     .user_data = (void *)&((tap_dance_triple_t) { kc1, kc2, kc3 }),  \
   }
 
+// タップ/長押し用の構造体
+typedef struct
+{
+  bool is_held;
+  uint16_t tap_keycode;
+  uint16_t hold_keycode;
+} tap_dance_tap_hold_t;
+
+#define ACTION_TAP_DANCE_TAP_HOLD(tap_key, hold_key) { \
+    .fn = { NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset }, \
+    .user_data = (void *)&((tap_dance_tap_hold_t) { false, tap_key, hold_key }),  \
+  }
 
 void tap_dance_triple_on_each_tap (tap_dance_state_t *state, void *user_data);
 void tap_dance_triple_finished (tap_dance_state_t *state, void *user_data);
@@ -26,3 +38,6 @@ void tap_dance_triple_reset (tap_dance_state_t *state, void *user_data);
 void tap_dance_mod_pair_on_each_tap (tap_dance_state_t *state, void *user_data);
 void tap_dance_mod_pair_finished (tap_dance_state_t *state, void *user_data);
 void tap_dance_mod_pair_reset (tap_dance_state_t *state, void *user_data);
+
+void tap_dance_tap_hold_finished (tap_dance_state_t *state, void *user_data);
+void tap_dance_tap_hold_reset (tap_dance_state_t *state, void *user_data);

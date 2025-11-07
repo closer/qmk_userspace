@@ -74,3 +74,26 @@ void tap_dance_mod_pair_reset (tap_dance_state_t *state, void *user_data) {
     unregister_code16 (triple->kc3);
   }
 }
+
+void tap_dance_tap_hold_finished (tap_dance_state_t *state, void *user_data) {
+  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+  if (state->pressed) {
+    // 長押し
+    tap_hold->is_held = true;
+    register_code16 (tap_hold->hold_keycode);
+  } else {
+    // タップ
+    tap_hold->is_held = false;
+    register_code16 (tap_hold->tap_keycode);
+  }
+}
+
+void tap_dance_tap_hold_reset (tap_dance_state_t *state, void *user_data) {
+  tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+  if (tap_hold->is_held) {
+    unregister_code16 (tap_hold->hold_keycode);
+    tap_hold->is_held = false;
+  } else {
+    unregister_code16 (tap_hold->tap_keycode);
+  }
+}

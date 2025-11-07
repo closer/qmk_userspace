@@ -13,69 +13,18 @@ enum layer_number {
 
 // タップダンスID
 enum {
-    TD_GUIH = 0,  // closer.hから移動
-    SPCCMDT,      // closer.hから移動
+    TD_GUIH = 0,
+    SPCCMDT,
     TD_ESC_F1,
     TD_BSPC_F12,
-};
-
-// タップ/長押し用の汎用構造体
-typedef struct {
-    bool is_held;
-    uint16_t tap_keycode;   // タップ時のキーコード
-    uint16_t hold_keycode;  // 長押し時のキーコード
-} td_tap_hold_t;
-
-// 汎用タップ/長押し処理
-void tap_hold_finished(tap_dance_state_t *state, void *user_data) {
-    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
-    if (state->pressed) {
-        // 長押し
-        s->is_held = true;
-        register_code(s->hold_keycode);
-    } else {
-        // タップ
-        s->is_held = false;
-        register_code(s->tap_keycode);
-    }
-}
-
-void tap_hold_reset(tap_dance_state_t *state, void *user_data) {
-    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
-    if (s->is_held) {
-        unregister_code(s->hold_keycode);
-        s->is_held = false;
-    } else {
-        unregister_code(s->tap_keycode);
-    }
-}
-
-// ESC/F1の状態
-static td_tap_hold_t esc_f1_state = {
-    .is_held = false,
-    .tap_keycode = KC_ESC,
-    .hold_keycode = KC_F1
-};
-
-// BSPC/F12の状態
-static td_tap_hold_t bspc_f12_state = {
-    .is_held = false,
-    .tap_keycode = KC_BSPC,
-    .hold_keycode = KC_F12
 };
 
 // タップダンス定義
 tap_dance_action_t tap_dance_actions[] = {
     [TD_GUIH] = ACTION_TAP_DANCE_MOD_DOUBLE(KC_LGUI, KC_LNG2, KC_LNG1),
     [SPCCMDT] = ACTION_TAP_DANCE_TRIPLE(KC_SPC, KC_COMM, KC_DOT),
-    [TD_ESC_F1] = {
-        .fn = {NULL, tap_hold_finished, tap_hold_reset},
-        .user_data = (void *)&esc_f1_state,
-    },
-    [TD_BSPC_F12] = {
-        .fn = {NULL, tap_hold_finished, tap_hold_reset},
-        .user_data = (void *)&bspc_f12_state,
-    },
+    [TD_ESC_F1] = ACTION_TAP_DANCE_TAP_HOLD(KC_ESC, KC_F1),
+    [TD_BSPC_F12] = ACTION_TAP_DANCE_TAP_HOLD(KC_BSPC, KC_F12),
 };
 
 #define KC_CTAB LCTL_T(KC_TAB)
