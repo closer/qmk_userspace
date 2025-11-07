@@ -13,6 +13,8 @@ enum layer_number {
 
 // タップダンスID
 enum {
+    TD_GUIH = 0,  // closer.hから移動
+    SPCCMDT,      // closer.hから移動
     TD_ESC_F1,
     TD_BSPC_F12,
 };
@@ -64,6 +66,8 @@ static td_tap_hold_t bspc_f12_state = {
 
 // タップダンス定義
 tap_dance_action_t tap_dance_actions[] = {
+    [TD_GUIH] = ACTION_TAP_DANCE_MOD_DOUBLE(KC_LGUI, KC_LNG2, KC_LNG1),
+    [SPCCMDT] = ACTION_TAP_DANCE_TRIPLE(KC_SPC, KC_COMM, KC_DOT),
     [TD_ESC_F1] = {
         .fn = {NULL, tap_hold_finished, tap_hold_reset},
         .user_data = (void *)&esc_f1_state,
@@ -116,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 十字キーorジョイスティック            // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,       R_CHMOD,
         // 追加スイッチ                          // トグルスイッチ
-        KC_LAL, KC_SETNG,                      KC_OFFON
+        KC_LALT, KC_SETNG,                     KC_OFFON
     ),
     [ONOFF] = LAYOUT(
         // 左手
