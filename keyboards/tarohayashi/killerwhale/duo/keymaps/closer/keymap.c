@@ -11,18 +11,14 @@ enum layer_number {
     MOUSE, SETTINGS      // 自動マウスレイヤー切り替えや設定用のレイヤー
 };
 
-// キーボード固有のタップダンスID（closer.hからの続き）
-enum killerwhale_tap_dance_ids {
-    TD_ESC_F1 = SPCCMDT + 1,
+// タップダンスID
+enum {
+    TD_ESC_F1 = 0,
     TD_BSPC_F12,
 };
 
-// タップダンス定義（共通＋キーボード固有）
+// タップダンス定義
 tap_dance_action_t tap_dance_actions[] = {
-    // 共通（closer.hで定義されたID）
-    [TD_GUIH] = ACTION_TAP_DANCE_MOD_DOUBLE(KC_LGUI, KC_LNG2, KC_LNG1),
-    [SPCCMDT] = ACTION_TAP_DANCE_TRIPLE(KC_SPC, KC_COMM, KC_DOT),
-    // キーボード固有
     [TD_ESC_F1] = ACTION_TAP_DANCE_TAP_HOLD(KC_ESC, KC_F1),
     [TD_BSPC_F12] = ACTION_TAP_DANCE_TAP_HOLD(KC_BSPC, KC_F12),
 };

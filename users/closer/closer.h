@@ -2,9 +2,5 @@
 
 #include "tap_dances.h"
 
-// 共通タップダンスID
-enum closer_tap_dance_ids {
-  TD_GUIH = 0,
-  SPCCMDT,
-  // キーボード固有のIDはこの後に続く
-};
+// タップダンスIDはkeymap.cで定義
+// 各キーボードで独自に定義してください
