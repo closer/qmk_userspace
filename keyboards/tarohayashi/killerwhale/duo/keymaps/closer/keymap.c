@@ -14,72 +14,74 @@ enum layer_number {
 #define KC_CTAB LCTL_T(KC_TAB)
 #define KC_GUIE LGUI_T(KC_LNG2)
 #define KC_GUIH LGUI_T(KC_LNG1)
+#define KC_SQUOT RSFT_T(KC_QUOTE)
 #define KC_LOWER LT(LOWER, KC_SPC)
 #define KC_UPPER LT(UPPER, KC_ENT)
 #define KC_ONOFF MO(ONOFF)
 #define KC_OFFON MO(OFFON)
 #define KC_SETNG MO(SETTINGS)
 #define KC_MSCLN LT(MOUSE, KC_SCLN)
-#define KC_MQUOT LT(MOUSE, KC_QUOT)
+#define KC_MQUOT LT(MOUSE, KC_QUOTE)
 
 // キーマップの設定
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_ESC,  KC_Q,   KC_W,    KC_E,    KC_R,     KC_T,
-        KC_CTAB, KC_A,   KC_S,    KC_D,    KC_F,     KC_G,
-        KC_LSFT, KC_Z,   KC_X,    KC_C,    KC_V,     KC_B,
-                 KC_F1,  KC_GLB, KC_LALT, KC_GUIE,  KC_LOWER,
-                         KC_F2,
+        KC_ESC,  KC_F2, KC_F3, KC_F4, KC_F5, KC_F6,
+        KC_CTAB, KC_Q,  KC_W,  KC_E,  KC_R,  KC_T,
+        KC_LSFT, KC_A,  KC_S,  KC_D,  KC_F,  KC_G,
+                 KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,
+                        KC_LALT,
         // 側面スイッチ
-        KC_F3, KC_F4,
-        // 十字キーorジョイスティック              // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,     L_CHMOD,
-        // 追加スイッチ                          // トグルスイッチ
-        KC_F5, KC_F6,                          KC_ONOFF,
+        KC_GUIE, KC_LOWER,
+        // 十字キーorジョイスティック           // ジョイスティックスイッチ
+        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,      L_CHMOD,
+        // 追加スイッチ                         // トグルスイッチ
+        KC_CAPS, KC_GLB,                        KC_ONOFF,
 
         // 右手
         // 天面スイッチ
-        KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,      KC_BSPC,
-        KC_H,     KC_J,     KC_K,     KC_L,     KC_MSCLN,  KC_MQUOT,
-        KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,   KC_RSFT,
-        KC_UPPER, KC_GUIH,  KC_RALT,  KC_SETNG, KC_F12,
-                                      KC_F11,
+        KC_F7, KC_F8, KC_F9,   KC_F10, KC_F11,   KC_F12,
+        KC_Y,  KC_U,  KC_I,    KC_O,   KC_P,     KC_BSPC,
+        KC_H,  KC_J,  KC_K,    KC_L,   KC_MSCLN, KC_RSFT,
+        KC_N,  KC_M,  KC_COMM, KC_DOT, KC_MQUOT,
+                               KC_SLSH,
+
         // 側面スイッチ
-        KC_F9, KC_F10,
-        // 十字キーorジョイスティック              // ジョイスティックスイッチ
-        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,     R_CHMOD,
+        KC_UPPER, KC_GUIH,
+        // 十字キーorジョイスティック            // ジョイスティックスイッチ
+        KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,       R_CHMOD,
         // 追加スイッチ                          // トグルスイッチ
-        KC_F7, KC_F8,                          KC_OFFON
+        KC_LAL KC_SETNG,                       KC_OFFON
     ),
     [ONOFF] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_ESC,  KC_Q,    KC_L,    KC_U,    KC_COMM, KC_DOT,
-        KC_CTAB, KC_E,    KC_A,    KC_O,    KC_I,    KC_MINS,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_SCLN,
-                 KC_F1,   KC_GLB,  KC_LALT, KC_GUIE, KC_LOWER,
-                          KC_F2,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+                 _______, _______, _______, _______, _______,
+                          _______,
         // 側面スイッチ
-        KC_F3,   KC_F4,
+        _______, _______,
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
-        KC_UP,   KC_DOWN, KC_LEFT, KC_RIGHT,     L_CHMOD,
+        _______, _______, _______, _______,      _______,
         // 追加スイッチ                            // トグルスイッチ
-        KC_F5,   KC_F6,                          _______,
+        _______, _______,                        _______,
         // 右手
         // 天面スイッチ
-        KC_F,    KC_W,    KC_R,    KC_Y,    KC_P,    KC_BSPC,
-        KC_K,    KC_T,    KC_N,    KC_S,    KC_H,    KC_MQUOT,
-        KC_G,    KC_D,    KC_M,    KC_J,    KC_B,     KC_RSFT,
-        KC_UPPER, KC_GUIH, KC_RALT, KC_SETNG, KC_F12,
-                                   KC_F11,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______,
+                                   _______,
         // 側面スイッチ
-        KC_F9,   KC_F10,
+        _______, _______,
         // 十字キーorジョイスティック                // ジョイスティックスイッチ
-        KC_UP,   KC_DOWN, KC_LEFT, KC_RIGHT,     R_CHMOD,
+        _______, _______, _______, _______,      _______,
         // 追加スイッチ                            // トグルスイッチ
-        KC_F7,   KC_F8,                          _______
+        _______, _______,                        _______
     ),
     [OFFON] = LAYOUT(
         // 左手
@@ -140,58 +142,60 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [LOWER] = LAYOUT(
         // 左手
         // 天面スイッチ
+        KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,
         _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
         _______, _______, _______, _______, KC_MPLY, KC_MFFD,
-        _______, _______, _______, _______, _______, _______,
-                 KC_F13,   _______, _______, _______, _______,
-                          KC_F14,
+                 _______, _______, _______, _______, _______,
+                          _______,
+
         // 側面スイッチ
-        KC_F15, KC_F16,
+        _______, _______,
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
         _______, _______, _______, _______,    _______,
         // 追加スイッチ                          // トグルスイッチ
-        KC_F17, KC_F18,                      _______,
+        _______, _______,                        _______,
         // 右手
         // 天面スイッチ
+        KC_F19,  KC_F20,  KC_F21,  KC_F22,   KC_F23,  KC_F24,
         KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    _______,
         KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, _______, _______,
-        _______, _______, _______, _______,  _______, _______,
-        _______, _______, _______, _______,  KC_F24,
-                                   KC_F23,
+        _______, _______, _______, _______,  _______,
+                                   _______,
+
         // 側面スイッチ
-        KC_F21,  KC_F22,
+        _______, _______,
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
         _______, _______, _______, _______,        _______,
         // 追加スイッチ                            // トグルスイッチ
-        KC_F19,  KC_F20,                            _______
+        _______, _______,                          _______
     ),
     [UPPER] = LAYOUT(
         // 左手
         // 天面スイッチ
+        KC_F1,   _______, _______, _______, _______, _______,
         _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,
         _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______,
-                 KC_F13,   _______, _______, _______, _______,
-                          KC_F14,
+                 _______, _______, _______, _______, _______,
+                          _______,
         // 側面スイッチ
-        KC_F15,  KC_F16,
+        _______, _______,
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
         _______, _______, _______, _______,        _______,
         // 追加スイッチ                            // トグルスイッチ
-        KC_F17,  KC_F18,                            _______,
+        _______, _______,                          _______,
         // 右手
         // 天面スイッチ
+        _______, _______, _______, _______, _______, KC_F12,
         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-        KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, KC_GRV,
-        KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS, KC_TILD,
-        _______, _______, _______, _______, KC_F24,
-                                   KC_F23,
+        KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
+        KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_GRV,
+                                   KC_BSLS,
         // 側面スイッチ
-        KC_F21,  KC_F22,
+        _______, _______,
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
         _______, _______, _______, _______,        _______,
-        // 追加スイッチ                              // トグルスイッチ
-        KC_F19,  KC_F20,                            _______
+        // 追加スイッチ                            // トグルスイッチ
+        _______, _______,                          _______
     ),
     [HYPER] = LAYOUT(
         // 左手
@@ -238,9 +242,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 右手
         // 天面スイッチ
         _______, _______, _______, _______, _______, _______,
-        _______, MS_BTN1, MS_BTN2, MOD_SCRL, _______, _______,
-        _______, MS_BTN3, _______, _______, _______, _______,
-        _______, _______, _______, _______, QK_USER_4,
+        _______, _______, _______, _______, _______, _______,
+        _______, MS_BTN1, MS_BTN2, MOD_SCRL,_______, _______,
+        _______, MS_BTN3, _______, _______, QK_USER_4,
                                    _______,
         // 側面スイッチ
         _______, _______,

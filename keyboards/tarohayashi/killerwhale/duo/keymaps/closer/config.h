@@ -53,6 +53,7 @@
 
 // RGBレイヤーデフォルト
 #define RGB_LAYER_DEFAULT true
+#define RGB_LAYER_DEFAULT_LAYER 7   // 使用レイヤー
 
 // 一時的モード変更タップ判定ms
 #define TERM_TEMP 100
