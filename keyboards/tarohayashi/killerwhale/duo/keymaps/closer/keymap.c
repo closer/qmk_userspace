@@ -198,10 +198,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 右手
         // 天面スイッチ
         _______, _______, _______, _______, _______, _______,
-        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-        KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, _______,
-        KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_TILD,
-                                   KC_GRV,
+        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_GRV,
+        KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
+        KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS,
+                                   _______,
         // 側面スイッチ
         _______, _______,
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
