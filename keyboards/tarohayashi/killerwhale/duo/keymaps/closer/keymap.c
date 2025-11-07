@@ -14,6 +14,7 @@ enum layer_number {
 // タップダンスID
 enum {
     TD_ESC_F1,
+    TD_BSPC_F12,
 };
 
 // ESC/F1タップダンス用の状態
@@ -49,11 +50,44 @@ void esc_f1_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+// BSPC/F12タップダンス用の状態
+static td_tap_hold_t bspc_f12_state = {
+    .is_held = false
+};
+
+// タップ: BSPC、長押し: F12
+void bspc_f12_finished(tap_dance_state_t *state, void *user_data) {
+    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
+    if (state->pressed) {
+        // 長押し: F12
+        s->is_held = true;
+        register_code(KC_F12);
+    } else {
+        // タップ: BSPC
+        s->is_held = false;
+        register_code(KC_BSPC);
+    }
+}
+
+void bspc_f12_reset(tap_dance_state_t *state, void *user_data) {
+    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
+    if (s->is_held) {
+        unregister_code(KC_F12);
+        s->is_held = false;
+    } else {
+        unregister_code(KC_BSPC);
+    }
+}
+
 // タップダンス定義
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_F1] = {
         .fn = {NULL, esc_f1_finished, esc_f1_reset},
         .user_data = (void *)&esc_f1_state,
+    },
+    [TD_BSPC_F12] = {
+        .fn = {NULL, bspc_f12_finished, bspc_f12_reset},
+        .user_data = (void *)&bspc_f12_state,
     },
 };
 
@@ -89,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 右手
         // 天面スイッチ
         KC_F7, KC_F8, KC_F9,   KC_F10, KC_F11,   KC_F12,
-        KC_Y,  KC_U,  KC_I,    KC_O,   KC_P,     KC_BSPC,
+        KC_Y,  KC_U,  KC_I,    KC_O,   KC_P,     TD(TD_BSPC_F12),
         KC_H,  KC_J,  KC_K,    KC_L,   KC_MSCLN, KC_RSFT,
         KC_N,  KC_M,  KC_COMM, KC_DOT, KC_MQUOT,
                                KC_SLSH,
@@ -231,7 +265,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,                          _______,
         // 右手
         // 天面スイッチ
-        _______, _______, _______, _______, _______, KC_F12,
+        _______, _______, _______, _______, _______, _______,
         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
         KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
         KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_GRV,
