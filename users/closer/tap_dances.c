@@ -84,7 +84,14 @@ void tap_dance_tap_hold_finished (tap_dance_state_t *state, void *user_data) {
   } else {
     // タップ
     tap_hold->is_held = false;
-    register_code16 (tap_hold->tap_keycode);
+    // Ctrl+Escapeの場合はTabを送信
+    if (tap_hold->tap_keycode == KC_ESC && (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTL))) {
+      tap_hold->pressed_keycode = KC_TAB;
+      register_code16 (KC_TAB);
+    } else {
+      tap_hold->pressed_keycode = tap_hold->tap_keycode;
+      register_code16 (tap_hold->tap_keycode);
+    }
   }
 }
 
@@ -94,6 +101,6 @@ void tap_dance_tap_hold_reset (tap_dance_state_t *state, void *user_data) {
     unregister_code16 (tap_hold->hold_keycode);
     tap_hold->is_held = false;
   } else {
-    unregister_code16 (tap_hold->tap_keycode);
+    unregister_code16 (tap_hold->pressed_keycode);
   }
 }

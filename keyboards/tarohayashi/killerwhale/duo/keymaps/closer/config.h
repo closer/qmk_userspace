@@ -60,3 +60,7 @@
 
 // 斜め入力防止のデフォルト
 #define DPAD_EX_DEFAULT true
+
+// タップダンス設定
+#define TAPPING_TERM 200              // タップとホールドの判定時間(ms)
+#define QUICK_TAP_TERM 120            // 連打時の素早いタップ認識時間(ms)

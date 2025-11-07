@@ -198,10 +198,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 右手
         // 天面スイッチ
         _______, _______, _______, _______, _______, _______,
-        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_GRV,
-        KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
-        KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS,
-                                   _______,
+        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+        KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, _______,
+        KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_TILD,
+                                   KC_GRV,
         // 側面スイッチ
         _______, _______,
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
@@ -311,25 +311,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-// altered
-bool altered_pressed = false;
-bool process_record_altered(uint mod_key, uint16_t keycode, uint16_t alter_key, keyrecord_t *record) {
-    if (record->event.pressed) {
-        if (get_mods() & MOD_BIT(mod_key)) {
-            register_code(alter_key);
-            altered_pressed = true;
-            return false;
-        }
-    } else {
-        if (altered_pressed) {
-            unregister_code(alter_key);
-            altered_pressed = false;
-            return false;
-        }
-    }
-    return true;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (layer_state_is(HYPER)) {
         if (record->event.pressed) {
@@ -337,12 +318,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
             del_mods(MOD_HYPR);
         }
-    }
-
-    switch (keycode) {
-        // Modified Keycodes
-        case KC_ESC:
-            return process_record_altered(KC_LCTL, KC_ESC, KC_TAB, record);
     }
     return true;
 };
