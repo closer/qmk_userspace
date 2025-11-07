@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 十字キーorジョイスティック            // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,       R_CHMOD,
         // 追加スイッチ                          // トグルスイッチ
-        KC_LAL KC_SETNG,                       KC_OFFON
+        KC_LAL, KC_SETNG,                      KC_OFFON
     ),
     [ONOFF] = LAYOUT(
         // 左手
