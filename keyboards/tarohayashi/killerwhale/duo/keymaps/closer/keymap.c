@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 十字キーorジョイスティック           // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,      L_CHMOD,
         // 追加スイッチ                         // トグルスイッチ
-        KC_CAPS, KC_GLB,                        KC_ONOFF,
+        XXXXXXX, KC_GLB,                        KC_ONOFF,
 
         // 右手
         // 天面スイッチ
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 十字キーorジョイスティック            // ジョイスティックスイッチ
         KC_UP, KC_DOWN, KC_LEFT, KC_RIGHT,       R_CHMOD,
         // 追加スイッチ                          // トグルスイッチ
-        KC_LALT, KC_SETNG,                     KC_OFFON
+        XXXXXXX, KC_SETNG,                     KC_OFFON
     ),
     [ONOFF] = LAYOUT(
         // 左手
@@ -198,10 +198,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // 右手
         // 天面スイッチ
         _______, _______, _______, _______, _______, _______,
-        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_GRV,
         KC_MINS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, KC_TILD,
-        KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_GRV,
-                                   KC_BSLS,
+        KC_UNDS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS,
+                                   _______,
         // 側面スイッチ
         _______, _______,
         // 十字キーorジョイスティック              // ジョイスティックスイッチ
