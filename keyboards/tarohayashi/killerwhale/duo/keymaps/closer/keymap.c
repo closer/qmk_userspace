@@ -11,6 +11,16 @@ enum layer_number {
     MOUSE, SETTINGS      // 自動マウスレイヤー切り替えや設定用のレイヤー
 };
 
+// タップダンスID
+enum {
+    TD_ESC_F1,
+};
+
+// タップダンス定義
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_ESC_F1] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_F1),
+};
+
 #define KC_CTAB LCTL_T(KC_TAB)
 #define KC_GUIE LGUI_T(KC_LNG2)
 #define KC_GUIH LGUI_T(KC_LNG1)
@@ -28,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_ESC,  KC_F2, KC_F3, KC_F4, KC_F5, KC_F6,
+        TD(TD_ESC_F1), KC_F2, KC_F3, KC_F4, KC_F5, KC_F6,
         KC_CTAB, KC_Q,  KC_W,  KC_E,  KC_R,  KC_T,
         KC_LSFT, KC_A,  KC_S,  KC_D,  KC_F,  KC_G,
                  KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,
@@ -172,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [UPPER] = LAYOUT(
         // 左手
         // 天面スイッチ
-        KC_F1,   _______, _______, _______, _______, _______,
+        _______,   _______, _______, _______, _______, _______,
         _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,
         _______, _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______,
