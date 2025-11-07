@@ -2,10 +2,9 @@
 
 #include "tap_dances.h"
 
-// タップダンスIDはkeymap.cで定義
-// enum {
-//   TD_GUIH = 0,
-//   SPCCMDT
-// };
-
-// tap_dance_actionsはkeymap.cで定義
+// 共通タップダンスID
+enum closer_tap_dance_ids {
+  TD_GUIH = 0,
+  SPCCMDT,
+  // キーボード固有のIDはこの後に続く
+};
