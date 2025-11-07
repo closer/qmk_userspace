@@ -20,7 +20,7 @@ enum {
 // タップダンス定義
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_F1] = ACTION_TAP_DANCE_TAP_HOLD(KC_ESC, KC_F1),
-    [TD_BSPC_F12] = ACTION_TAP_DANCE_TAP_HOLD(KC_BSPC, KC_F12),
+    [TD_BSPC_F12] = ACTION_TAP_DANCE_TAP_HOLD_PREFER_TAP(KC_BSPC, KC_F12),
 };
 
 #define KC_CTAB LCTL_T(KC_TAB)
