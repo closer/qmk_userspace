@@ -17,76 +17,59 @@ enum {
     TD_BSPC_F12,
 };
 
-// ESC/F1タップダンス用の状態
+// タップ/長押し用の汎用構造体
 typedef struct {
     bool is_held;
+    uint16_t tap_keycode;   // タップ時のキーコード
+    uint16_t hold_keycode;  // 長押し時のキーコード
 } td_tap_hold_t;
 
+// 汎用タップ/長押し処理
+void tap_hold_finished(tap_dance_state_t *state, void *user_data) {
+    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
+    if (state->pressed) {
+        // 長押し
+        s->is_held = true;
+        register_code(s->hold_keycode);
+    } else {
+        // タップ
+        s->is_held = false;
+        register_code(s->tap_keycode);
+    }
+}
+
+void tap_hold_reset(tap_dance_state_t *state, void *user_data) {
+    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
+    if (s->is_held) {
+        unregister_code(s->hold_keycode);
+        s->is_held = false;
+    } else {
+        unregister_code(s->tap_keycode);
+    }
+}
+
+// ESC/F1の状態
 static td_tap_hold_t esc_f1_state = {
-    .is_held = false
+    .is_held = false,
+    .tap_keycode = KC_ESC,
+    .hold_keycode = KC_F1
 };
 
-// タップ: ESC、長押し: F1
-void esc_f1_finished(tap_dance_state_t *state, void *user_data) {
-    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
-    if (state->pressed) {
-        // 長押し: F1
-        s->is_held = true;
-        register_code(KC_F1);
-    } else {
-        // タップ: ESC
-        s->is_held = false;
-        register_code(KC_ESC);
-    }
-}
-
-void esc_f1_reset(tap_dance_state_t *state, void *user_data) {
-    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
-    if (s->is_held) {
-        unregister_code(KC_F1);
-        s->is_held = false;
-    } else {
-        unregister_code(KC_ESC);
-    }
-}
-
-// BSPC/F12タップダンス用の状態
+// BSPC/F12の状態
 static td_tap_hold_t bspc_f12_state = {
-    .is_held = false
+    .is_held = false,
+    .tap_keycode = KC_BSPC,
+    .hold_keycode = KC_F12
 };
-
-// タップ: BSPC、長押し: F12
-void bspc_f12_finished(tap_dance_state_t *state, void *user_data) {
-    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
-    if (state->pressed) {
-        // 長押し: F12
-        s->is_held = true;
-        register_code(KC_F12);
-    } else {
-        // タップ: BSPC
-        s->is_held = false;
-        register_code(KC_BSPC);
-    }
-}
-
-void bspc_f12_reset(tap_dance_state_t *state, void *user_data) {
-    td_tap_hold_t *s = (td_tap_hold_t *)user_data;
-    if (s->is_held) {
-        unregister_code(KC_F12);
-        s->is_held = false;
-    } else {
-        unregister_code(KC_BSPC);
-    }
-}
 
 // タップダンス定義
 tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_F1] = {
-        .fn = {NULL, esc_f1_finished, esc_f1_reset},
+        .fn = {NULL, tap_hold_finished, tap_hold_reset},
         .user_data = (void *)&esc_f1_state,
     },
     [TD_BSPC_F12] = {
-        .fn = {NULL, bspc_f12_finished, bspc_f12_reset},
+        .fn = {NULL, tap_hold_finished, tap_hold_reset},
         .user_data = (void *)&bspc_f12_state,
     },
 };
