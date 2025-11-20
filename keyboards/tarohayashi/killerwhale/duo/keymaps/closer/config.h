@@ -2,7 +2,7 @@
 
 // 入力モードデフォルト
 // KEY_INPUT / CURSOR_MODE / SCROLL_MODE / GAME_MODE
-#define MODE_DEFAULT_LEFT GAME_MODE
+#define MODE_DEFAULT_LEFT SCROLL_MODE
 #define MODE_DEFAULT_RIGHT CURSOR_MODE
 
 // CPI = 400 + spd * 200 / AMP = 16.0 + (double)spd * 3.0
@@ -38,7 +38,7 @@
 
 // ジョイスティク用定数
 #define NO_JOYSTICK_VAL 100         // JSの有無判定閾値
-#define KEY_OFFSET 5                // キー入力閾値
+#define KEY_OFFSET 12               // キー入力閾値（斜め移動の遊び、大きいほど鈍感）
 #define TIMEOUT_KEY 50              // キー入力間隔
 
 #define JOYSTICK_OFFSET_MIN_DEFAULT 50 // ジョイスティックの小さい値を無視する範囲 最大200
@@ -59,9 +59,11 @@
 #define TERM_TEMP 100
 
 // 斜め入力防止のデフォルト
-#define DPAD_EX_DEFAULT true
+#define DPAD_EX_DEFAULT false
 
-// タップダンス設定
+// タップ/ホールド設定
 #undef TAPPING_TERM
 #define TAPPING_TERM 500              // タップとホールドの判定時間(ms)
-#define QUICK_TAP_TERM 120            // 連打時の素早いタップ認識時間(ms)
+#define KEY_REPEAT_DELAY 500          // タップ後のリピート開始までの遅延(ms)
+#define KEY_REPEAT_INTERVAL 30        // リピート間隔(ms)
+#define TAP_CONTINUE_THRESHOLD 200    // 連打継続と判定する時間閾値(ms)
