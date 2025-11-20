@@ -41,6 +41,18 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
+// タップダンスID
+enum {
+  TD_GUIH = 0,
+  SPCCMDT,
+};
+
+// タップダンス定義
+tap_dance_action_t tap_dance_actions[] = {
+  [TD_GUIH] = ACTION_TAP_DANCE_MOD_DOUBLE(KC_LGUI, KC_LNG2, KC_LNG1),
+  [SPCCMDT] = ACTION_TAP_DANCE_TRIPLE(KC_SPC, KC_COMM, KC_DOT),
+};
+
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
 #define KC_LOWER LOWER
